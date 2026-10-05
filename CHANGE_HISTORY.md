@@ -2,6 +2,9 @@
 
 Newest first. One dated entry per notable change.
 
+## [2026-10-05] — chore: freeze legacy duplicate Docker Hub repos
+- `yohannaftali/yohannaftali-mariadb` duplicate `yohannaftali/mariadb` and are still pulled by other apps. Added a DEPRECATED overview and short description to each (images untouched, no new pushes) and recorded the policy in `AGENTS.md`. Docker Hub's "Archive repository" setting (web UI) can additionally block pushes.
+
 ## [2026-10-05] — chore: agent guide and skills
 - Added `AGENTS.md`, `CLAUDE.md`, `CHANGE_HISTORY.md` and `.claude/skills/` (`planner`, `coder`, `tester`, `reviewer`), adapted from the Senar project for this single-image repo (GitHub + `gh`, local Docker smoke test instead of browser testing).
 - Files: `AGENTS.md`, `CLAUDE.md`, `CHANGE_HISTORY.md`, `.claude/skills/*/SKILL.md`

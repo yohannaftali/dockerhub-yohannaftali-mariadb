@@ -50,6 +50,7 @@ scripts/dockerhub-update.sh|.ps1 # bash / PowerShell wrappers around `uv run`
   scope *Read, Write, Delete*; description updates need Delete scope).
 - **Categories cannot be set via the Docker Hub API** (it silently ignores them). They are set
   by hand in the web UI. Current: *Developer tools*, *Databases & storage*.
+- **Legacy duplicate Docker Hub repos** (`yohannaftali/yohannaftali-mariadb`) are older names for `yohannaftali/mariadb`. Other apps still pull them, so they cannot be deleted. They are **frozen**: their overview carries a DEPRECATED notice pointing here (set 2026-10-05) and nothing may be pushed to them (a new MariaDB major version on an existing data volume can break apps). Maintain only `yohannaftali/mariadb`.
 - `README.md` is published verbatim as the Hub overview: keep it self-contained, no
   repo-relative links that only work on GitHub.
 
