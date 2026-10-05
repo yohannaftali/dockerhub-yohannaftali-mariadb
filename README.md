@@ -5,7 +5,27 @@
 
 [MariaDB](https://hub.docker.com/_/mariadb) image preconfigured with **Asia/Jakarta (WIB, UTC+7)** as the container's local timezone.
 
-Docker Hub: <https://hub.docker.com/r/yohannaftali/mariadb>
+- Docker Hub: <https://hub.docker.com/r/yohannaftali/mariadb>
+- Source code (Dockerfile, build workflow, scripts): <https://github.com/yohannaftali/dockerhub-yohannaftali-mariadb>
+- Issues and feature requests: <https://github.com/yohannaftali/dockerhub-yohannaftali-mariadb/issues>
+
+## Use this image
+
+No build needed. Pull the prebuilt image straight from Docker Hub:
+
+```bash
+docker pull yohannaftali/mariadb
+```
+
+Or reference it in your `docker-compose.yml`:
+
+```yaml
+services:
+  db:
+    image: yohannaftali/mariadb:latest
+```
+
+See [Quick start](#quick-start) for a complete example.
 
 ## Overview
 
@@ -129,6 +149,10 @@ PowerShell:
 ```
 
 Both wrappers call `scripts/dockerhub_update.py` through `uv run`. Set `DOCKERHUB_REPO` to target a repository other than `mariadb`.
+
+## Source and contributing
+
+The Dockerfile, GitHub Actions workflow and maintenance scripts live at <https://github.com/yohannaftali/dockerhub-yohannaftali-mariadb>. Open an issue there to request a new MariaDB version or report a problem.
 
 ## License
 
