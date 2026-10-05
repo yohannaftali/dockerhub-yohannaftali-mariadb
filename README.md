@@ -95,6 +95,7 @@ To change which MariaDB versions are published, edit the `version` matrix in the
 
 - **Overview**: synced from this `README.md` by the workflow (or paste it in *Repository → General*).
 - **Short description**: set in the workflow (`short-description`), max 100 characters.
+- **Manual sync / status**: `python scripts/dockerhub_update.py` pushes the README and short description; `status`, `tags` and `delete-tag <tag>` are also available (reads `DOCKERHUB_USERNAME` / `DOCKERHUB_TOKEN` from `.env`).
 - **Category**: not exposed through the API; set manually in *Repository → Settings → Categories* (suggested: **Databases & Storage**).
 - **Tags**: remove stale tags in *Repository → Tags*; the weekly rebuild keeps the maintained ones fresh.
 
