@@ -95,9 +95,40 @@ To change which MariaDB versions are published, edit the `version` matrix in the
 
 - **Overview**: synced from this `README.md` by the workflow (or paste it in *Repository → General*).
 - **Short description**: set in the workflow (`short-description`), max 100 characters.
-- **Manual sync / status**: `scripts/dockerhub-update.sh` (bash) or `scripts/dockerhub-update.ps1` (PowerShell), which run the Python script via `uv`; the default pushes the README and short description; `status`, `tags` and `delete-tag <tag>` are also available (reads `DOCKERHUB_USERNAME` / `DOCKERHUB_TOKEN` from `.env`).
+- **Manual sync / status**: see [Maintenance scripts](#maintenance-scripts).
 - **Category**: not exposed through the API; set manually in *Repository → Settings → Categories* (suggested: **Databases & Storage**).
 - **Tags**: remove stale tags in *Repository → Tags*; the weekly rebuild keeps the maintained ones fresh.
+
+## Maintenance scripts
+
+Helper scripts in `scripts/` manage the Docker Hub repository from your machine. They need [uv](https://docs.astral.sh/uv/) and a `.env` file (copy `.env.example`) with `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`. There are no other dependencies.
+
+| Command | Action |
+| --- | --- |
+| *(none)* / `sync` | Push `README.md` as the overview and set the short description |
+| `status` | Show description, categories, pull and star counts |
+| `tags` | List tags with last update and size |
+| `delete-tag <tag>` | Delete a tag |
+
+Bash:
+
+```bash
+./scripts/dockerhub-update.sh            # sync
+./scripts/dockerhub-update.sh status
+./scripts/dockerhub-update.sh tags
+./scripts/dockerhub-update.sh delete-tag 10.11
+```
+
+PowerShell:
+
+```powershell
+.\scripts\dockerhub-update.ps1            # sync
+.\scripts\dockerhub-update.ps1 status
+.\scripts\dockerhub-update.ps1 tags
+.\scripts\dockerhub-update.ps1 delete-tag 10.11
+```
+
+Both wrappers call `scripts/dockerhub_update.py` through `uv run`. Set `DOCKERHUB_REPO` to target a repository other than `mariadb`.
 
 ## License
 
