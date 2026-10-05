@@ -1,11 +1,15 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = []
+# ///
 """Update the Docker Hub repository metadata from this repo (stdlib only).
 
 Usage:
-  python scripts/dockerhub_update.py              # sync short + full description from README.md
-  python scripts/dockerhub_update.py status       # show description, categories, pulls
-  python scripts/dockerhub_update.py tags         # list tags
-  python scripts/dockerhub_update.py delete-tag <tag>
+  uv run scripts/dockerhub_update.py              # sync short + full description from README.md
+  uv run scripts/dockerhub_update.py status       # show description, categories, pulls
+  uv run scripts/dockerhub_update.py tags         # list tags
+  uv run scripts/dockerhub_update.py delete-tag <tag>
 
 Reads DOCKERHUB_USERNAME and DOCKERHUB_TOKEN from the environment or .env.
 The token needs "Read, Write, Delete" scope.
