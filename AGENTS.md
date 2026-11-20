@@ -37,7 +37,7 @@ CLAUDE.md                        # points agents at this file
 .github/workflows/docker-publish.yml   # build+push matrix, then description sync
 scripts/dockerhub_update.py      # Docker Hub API helper (stdlib only, run via uv)
 scripts/dockerhub-update.sh|.ps1 # bash / PowerShell wrappers around `uv run`
-.claude/skills/                  # planner, coder, tester, reviewer (see below)
+.claude/skills/                  # planner, coder, tester, reviewer, updater (see below)
 ```
 
 ## Key Facts
@@ -87,8 +87,11 @@ Adapted from the Senar project for a single-image repo (no issue-tracker UI, no 
 - **`coder`**: implements an issue (Dockerfile, workflow, scripts, README) per these rules.
 - **`tester`**: builds the image locally, smoke-tests it, and only then opens/merges a PR.
 - **`reviewer`**: post-merge audit of what landed on `main` and on Docker Hub.
+- **`updater`**: pulls the latest repo and upstream `mariadb` base images, smoke-tests each
+  tag locally, then publishes to Docker Hub (via `gh workflow run`, local buildx push only as
+  a confirmed fallback) and verifies the result. No code changes.
 
-Flow: `planner` -> `coder` -> `tester` -> `reviewer`.
+Flow: `planner` -> `coder` -> `tester` -> `reviewer`. Routine refreshes: `updater`.
 
 ## Tracked Issues
 

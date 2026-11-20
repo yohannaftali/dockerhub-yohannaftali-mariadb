@@ -2,6 +2,10 @@
 
 Newest first. One dated entry per notable change.
 
+## [2026-11-20] — chore: updater skill
+- Added `.claude/skills/updater/SKILL.md`: pull latest repo + upstream base images, compare upstream vs published tag timestamps, smoke-test each tag, publish via the `docker-publish` workflow (local buildx push as fallback), verify on Docker Hub, record here.
+- Files: `.claude/skills/updater/SKILL.md`, `AGENTS.md`, `CHANGE_HISTORY.md`
+
 ## [2026-10-05] — chore: freeze legacy duplicate Docker Hub repos
 - `yohannaftali/yohannaftali-mariadb` duplicate `yohannaftali/mariadb` and are still pulled by other apps. Added a DEPRECATED overview and short description to each (images untouched, no new pushes) and recorded the policy in `AGENTS.md`. Docker Hub's "Archive repository" setting (web UI) can additionally block pushes.
 
