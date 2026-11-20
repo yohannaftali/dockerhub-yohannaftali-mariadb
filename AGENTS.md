@@ -88,8 +88,8 @@ Adapted from the Senar project for a single-image repo (no issue-tracker UI, no 
 - **`tester`**: builds the image locally, smoke-tests it, and only then opens/merges a PR.
 - **`reviewer`**: post-merge audit of what landed on `main` and on Docker Hub.
 - **`updater`**: pulls the latest repo and upstream `mariadb` base images, smoke-tests each
-  tag locally, then publishes to Docker Hub (via `gh workflow run`, local buildx push only as
-  a confirmed fallback) and verifies the result. No code changes.
+  tag locally, then publishes to Docker Hub via `gh workflow run` (never a local push) and
+  verifies the result. No code changes, no commits for a routine refresh.
 
 Flow: `planner` -> `coder` -> `tester` -> `reviewer`. Routine refreshes: `updater`.
 

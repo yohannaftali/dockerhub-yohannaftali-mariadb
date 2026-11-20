@@ -3,7 +3,8 @@
 Newest first. One dated entry per notable change.
 
 ## [2026-11-20] — chore: updater skill
-- Added `.claude/skills/updater/SKILL.md`: pull latest repo + upstream base images, compare upstream vs published tag timestamps, smoke-test each tag, publish via the `docker-publish` workflow (local buildx push as fallback), verify on Docker Hub, record here.
+- Added `.claude/skills/updater/SKILL.md`: pull latest repo + upstream base images, compare upstream vs published tag timestamps, smoke-test each tag, publish via the `docker-publish` workflow, verify on Docker Hub.
+- Aligned with the nginx/php8-fpm updaters the same day: CI-only publishing (no local push), no `CHANGE_HISTORY.md` entry for routine refreshes, Python instead of `jq` (not installed on the maintainer's machine). First run: all tags already newer than upstream, nothing published.
 - Files: `.claude/skills/updater/SKILL.md`, `AGENTS.md`, `CHANGE_HISTORY.md`
 
 ## [2026-10-05] — chore: freeze legacy duplicate Docker Hub repos
