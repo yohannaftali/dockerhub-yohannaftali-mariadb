@@ -76,6 +76,50 @@ volumes:
 
 > Note: `@@system_time_zone` reports `WIB`; `@@time_zone` stays `SYSTEM`, so `NOW()` returns Jakarta time.
 
+## Updating running containers
+
+`docker pull` only downloads the new image. A running container keeps using the image it was created from until you remove it and create it again. Data in volumes and bind mounts is kept; anything written inside the container itself is lost when it is recreated.
+
+### With docker compose (recommended)
+
+In the folder that has your `docker-compose.yml`:
+
+```bash
+docker compose pull          # download newer images
+docker compose up -d         # recreate only the containers whose image changed
+docker image prune -f        # optional: remove the old, unused images
+```
+
+To update one service only: `docker compose pull db && docker compose up -d db`.
+
+### With plain docker run
+
+```bash
+docker pull yohannaftali/mariadb:11.4
+
+# is the container on the old image? (different IDs = needs update)
+docker inspect -f '{{.Image}}' mariadb
+docker image inspect -f '{{.Id}}' yohannaftali/mariadb:11.4
+
+docker stop mariadb && docker rm mariadb
+docker run -d --name mariadb -e MARIADB_ROOT_PASSWORD=change-me -p 3306:3306 -v mariadb-data:/var/lib/mysql yohannaftali/mariadb:11.4
+```
+
+Recreate it with exactly the same options as before (ports, volumes, `-e` variables, network, `--restart`). If you do not remember them, read them before removing the container:
+
+```bash
+docker inspect mariadb --format '{{json .HostConfig.Binds}} {{json .HostConfig.PortBindings}} {{json .Config.Env}} {{.HostConfig.NetworkMode}}'
+```
+
+Keeping the options in a `docker-compose.yml` turns every future update into the two commands above.
+
+### Notes for MariaDB
+
+- **Back up first**: `docker exec mariadb sh -c 'mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" --all-databases' > backup.sql` (uses the container's own root password variable).
+- **Pin a version tag** (`11.4`, `10.11`) for databases with existing data. Updating within the same tag only brings patch releases, which are safe on existing data. `latest` can move to a new major version, which upgrades the data files and cannot be undone by going back to the old image.
+- Check the version your data is on: `docker exec mariadb mariadb --version`.
+- **Old image name**: `yohannaftali/yohannaftali-mariadb` is frozen and no longer updated, so pulling it brings nothing new. To get updates, switch the image to `yohannaftali/mariadb:<tag>`, choosing the tag that matches the major version your data is on now (not `latest`).
+
 ## Build (maintainers)
 
 ```bash
