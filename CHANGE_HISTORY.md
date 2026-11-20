@@ -5,6 +5,7 @@ Newest first. One dated entry per notable change.
 ## [2026-11-20] — docs: README guide for updating running containers
 - New "Updating running containers" section in `README.md` (also the Docker Hub overview): `docker pull` does not change a running container; how to recreate with docker compose or plain `docker run`, plus image-specific notes.
 - Added a "With Portainer" subsection: pull happens on the stack's Docker host (not the Portainer server); Re-pull image and redeploy for stacks, Recreate with Re-pull for containers, Swarm notes.
+- Added what happens when the Portainer host is down (containers keep running; only management via Portainer stops).
 
 ## [2026-11-20] — chore: updater skill
 - Added `.claude/skills/updater/SKILL.md`: pull latest repo + upstream base images, compare upstream vs published tag timestamps, smoke-test each tag, publish via the `docker-publish` workflow, verify on Docker Hub.
